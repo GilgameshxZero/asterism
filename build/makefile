@@ -7,12 +7,8 @@ TEST_DIR := $(ROOT_DIR)test/
 OBJ_DIR := $(ROOT_DIR)obj/
 BIN_DIR := $(ROOT_DIR)bin/
 
-# Groups of files and filenames.
-VERSION_BUILD_INCLUDE := $(INCLUDE_DIR)rain/build.hpp
-
-# All of rain's include fules, except for the build file.
-RAIN_INCLUDES := $(filter-out $(VERSION_BUILD_INCLUDE), \
-	$(shell find $(INCLUDE_DIR) -name *.hpp))
+# All of asterism's include fules, except for the build file.
+ASTERISM_INCLUDES := $(shell find $(INCLUDE_DIR) -name *.hpp)
 
 TEST_SRCS := $(wildcard $(TEST_DIR)*.cpp)
 TEST_NAMES := $(basename $(notdir $(wildcard $(TEST_DIR)*.cpp)))
@@ -79,7 +75,7 @@ clean:
 # Rules for single tests just redirect to test binaries.
 # Enable second expansion for some fancy pattern matching later.
 .SECONDEXPANSION:
-$(TEST_NAMES): $(VERSION_BUILD_INCLUDE) $(BIN_DIR)$$@
+$(TEST_NAMES): $(BIN_DIR)$$@
 
 # Static rules to nest one directory deep inside ../obj.
 # Link rule.
@@ -90,15 +86,6 @@ $(TEST_BINS): $(BIN_DIR)% : $(OBJ_DIR)$$*/$$*.o
 # Compile rule. Stem % matches TEST_NAME/TEST_NAME, in which / is replaced \
 	with a space and the first word is extracted for the cpp file name.
 $(TEST_OBJS): $(OBJ_DIR)%.o : $(TEST_DIR)$$(firstword $$(subst /, ,$$*)).cpp \
-	$(RAIN_INCLUDES)
+	$(ASTERISM_INCLUDES)
 	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Increment version build number.
-$(VERSION_BUILD_INCLUDE): $(RAIN_INCLUDES) $(TEST_SRCS)
-	@read line < $(VERSION_BUILD_INCLUDE); \
-	TOKENS=($$line); \
-	RAIN_VERSION_BUILD=$$(($${TOKENS[2]} + 1)); \
-	echo -e "$${TOKENS[0]} $${TOKENS[1]} $$RAIN_VERSION_BUILD\c" > \
-		$(VERSION_BUILD_INCLUDE); \
-	echo VERSION_BUILD: $$RAIN_VERSION_BUILD.
