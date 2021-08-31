@@ -188,3 +188,10 @@ int main() {
 	// all tests.
 	std::cout << "All tests passed!\n";
 }
+
+
+
+
+if( Contains(empty, 99) ) {
+    ErrorExit("Contains() - empty");
+  }
