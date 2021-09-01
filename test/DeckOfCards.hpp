@@ -24,7 +24,12 @@ struct Suits {
 };
 struct Card {
     int rank; //what number value does it have from 1-13
+    // int suit; // OKAY: only store values 1-4 in here.
     Suits theSuit; //Card.Suits.club == "club" or, Card.Suits.1 = club;
+    // int club = 1; //can I do int club = 1 ? and then later tell it to output "club" for when Card.Suits.1 <--- is 1?
+    // int spade = 2;
+    // int diamond = 3;
+    // int heart = 4;
 };
 
 //always remember semi-colon after a struct declaration
