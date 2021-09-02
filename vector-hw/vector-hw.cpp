@@ -37,7 +37,7 @@ bool Contains(vector<int> input, int lookFor) {
 
 int FindMin(vector<int> input) {
 	if (input.size() == 0) {
-		cout << "STOP!!!!\n"
+		cout << "STOP!!!!\n";
 		return 1;
 	}
 
@@ -189,9 +189,6 @@ int main() {
 	std::cout << "All tests passed!\n";
 }
 
-
-
-
-if( Contains(empty, 99) ) {
-    ErrorExit("Contains() - empty");
-  }
+// if (Contains(empty, 99)) {
+// 	ErrorExit("Contains() - empty");
+// }

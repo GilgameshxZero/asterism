@@ -7,7 +7,9 @@
 @REM Call vcvarsall to set environment variables if it hasn't been done already.
 @REM Calling vcvarsall multiple times will error.
 IF NOT DEFINED VSCMD_VER (
-	CALL vcvarsall.default x64
+	CALL vcvarsall.DEFAULT x64
+)
+IF NOT DEFINED VSCMD_VER (
 	CALL vcvarsall x64
 )
 
@@ -25,10 +27,10 @@ IF NOT EXIST ..\obj\%PROJECT_NAME%\ (
 	MD ..\obj\%PROJECT_NAME%\
 )
 
-SET "COMPILE_OP_COMMON=/I../include/ /std:c++17 /D _CONSOLE /Fa..\obj\%PROJECT_NAME%\ /Fd..\obj\%PROJECT_NAME%\%PROJECT_NAME%.pdb /Fo..\obj\%PROJECT_NAME%\ /Fp..\obj\%PROJECT_NAME%\%PROJECT_NAME%.pch /fp:fast /MP /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /GS /W3 /WX- /wd4250 /sdl /diagnostics:column /Zf /EHsc /Gm- /nologo"
+SET "COMPILE_OP_COMMON=/std:c++17 /D _CONSOLE /Fa..\obj\%PROJECT_NAME%\ /Fd..\obj\%PROJECT_NAME%\%PROJECT_NAME%.pdb /Fo..\obj\%PROJECT_NAME%\ /Fp..\obj\%PROJECT_NAME%\%PROJECT_NAME%.pch /fp:fast /MP /permissive- /Zc:wchar_t /Zc:forScope /Zc:inline /GS /W3 /WX- /wd4250 /sdl /diagnostics:column /Zf /EHsc /Gm- /nologo"
 SET "COMPILE_OP_DEBUG=/D _DEBUG /MDd /Od /RTC1 /JMC /ZI"
 SET "COMPILE_OP_RELEASE=/D NDEBUG /MT /O2 /Oi /GL /Gy /Zi"
-SET "COMPILE_FILES=..\test\%PROJECT_NAME%.cpp"
+SET "COMPILE_FILES=..\%PROJECT_NAME%\*.cpp"
 
 SET "LINK_OP_COMMON=/link /OUT:..\bin\%PROJECT_NAME%.exe /PDB:..\obj\%PROJECT_NAME%\%PROJECT_NAME%.pdb /ILK:..\obj\%PROJECT_NAME%\%PROJECT_NAME%.ilk /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /MANIFESTFILE:..\obj\%PROJECT_NAME%\%PROJECT_NAME%.exe.intermediate.manifest /LTCGOUT:..\obj\%PROJECT_NAME%\%PROJECT_NAME%.iobj /SUBSYSTEM:CONSOLE /NOLOGO"
 SET "LINK_OP_DEBUG=/DEBUG"

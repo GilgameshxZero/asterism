@@ -29,12 +29,12 @@
 		"group": { "kind": "build", "isDefault": true },
 
 		"command": "make",
-		"args": ["${fileBasenameNoExtension}"],
+		"args": ["${relativeFileDirname}"],
 		"problemMatcher": ["$gcc"],
 
 		"windows": {
 			"command": "build",
-			"args": ["${fileBasenameNoExtension}"],
+			"args": ["${relativeFileDirname}"],
 			"problemMatcher": ["$msCompile"]
 		}
 	}, {
@@ -48,12 +48,12 @@
 		"group": "build",
 
 		"command": "make",
-		"args": ["${fileBasenameNoExtension}", "RELEASE=1"],
+		"args": ["${relativeFileDirname}", "RELEASE=1"],
 		"problemMatcher": ["$gcc"],
 
 		"windows": {
 			"command": "build",
-			"args": ["${fileBasenameNoExtension}", "release"],
+			"args": ["${relativeFileDirname}", "release"],
 			"problemMatcher": ["$msCompile"]
 		}
 	}]
