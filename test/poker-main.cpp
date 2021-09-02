@@ -257,51 +257,60 @@ bool isFullHouse(std::vector<Card> &someDeck) {
 //
 //  Created by Anna Thomas on 9/1/21.
 //
+//
+//  PokerFunctions.cpp
+//  Poker
+//
+//  Created by Anna Thomas on 9/1/21.
+// Ryan Brumfield
+// Ryan Jensen
 
 int main() {
-	std::vector<Card> myDeck = generateDeck();	// makes a deck named "myDeck"
-	shuffleDeck(myDeck);	// shuffles said deck
-	printshuffledDeck(myDeck);	// prints said deck
-	std::vector<Card> myHand = makeMyHand(
-		myDeck);	// turns said deck into a hand (vector) of Cards, size 5
-	printHand(myHand);	// prints new "deck" (now colloquially a hand)
-	// printHandPoker(myHand);
+    std::vector<Card> myDeck = generateDeck();    // makes a deck named "myDeck"
+    shuffleDeck(myDeck);    // shuffles said deck
+//    printshuffledDeck(myDeck);    // prints said deck
+    std::vector<Card> myHand = makeMyHand(
+        myDeck);    // turns said deck into a hand (vector) of Cards, size 5
+//    printHand(myHand);    // prints new "deck" (now colloquially a hand)
+    // printHandPoker(myHand);
 
-	int x = 0;
-	int y = 0;
-	int z = 0;
-	int z2 = 0;
-	int z3 = 0;
+    int x = 0;
+    int y = 0;
+    int z = 0;
+    int z2 = 0;
+    int z3 = 0;
 
-	for (int a = 0; a < 1000000; a++) {
-		shuffleDeck(myDeck);
-		myHand = makeMyHand(myDeck);
+    for (int a = 0; a < 1000001; a++) {
+        shuffleDeck(myDeck);
+        myHand = makeMyHand(myDeck);
 
-		if (isFlush(myHand) == true) {
-			x++;
-		}
-		if (isStraight(myHand) == true) {
-			y++;
-		}
-		if (isStraightFlush(myHand) == true) {
-			z++;
-		}
-		if (isRoyalFlush(myHand) == true) {
-			z2++;
-		}
-		if (isFullHouse(myHand) == true) {
-			z3++;
-		}
+        if (isFlush(myHand) == true) {
+            x++;
+        }
+        if (isStraight(myHand) == true) {
+            y++;
+        }
+        if (isStraightFlush(myHand) == true) {
+            z++;
+        }
+        if (isRoyalFlush(myHand) == true) {
+            z2++;
+        }
+        if (isFullHouse(myHand) == true) {
+            z3++;
+        }
+        
+        std::cout<< "Percentage of flushes: " << x/1000000.0 << "Percentage of straights: " << y/1000000.0 << "Percentage of straight flushes " << z/1000000.0 << "Percentage of full houses: " << z3/1000000.0 << "Percentage of royal flushes: " << z2/1000000.0;
 
-		// int cz2ount
-	}
-	// shuffleDeck(myDeck);
-	// printshuffledDeck(myDeck);
-	// std::vector<Card> myHand2 = makeMyHand(myDeck);
-	// printHand(myHand2);
-	// printHandPoker(myHand2);
+        // int cz2ount
+    }
+    // shuffleDeck(myDeck);
+    // printshuffledDeck(myDeck);
+    // std::vector<Card> myHand2 = makeMyHand(myDeck);
+    // printHand(myHand2);
+    // printHandPoker(myHand2);
 
-	return 0;
+    return 0;
 }
 
 // After each shuffle, check whether the hand is one of the hands you test for
@@ -310,3 +319,14 @@ int main() {
 // Print out what fraction of hands are one of the above. You probably will not
 // see a royal flush until you examine 100k to 1 milion hands! At the top of
 // your code (in comments), record the percentage you see each type of hand.
+
+
+// After each shuffle, check whether the hand is one of the hands you test for
+// above and keep track of the total numbers of flushes, straights, royal
+// flushes, etc, you see.
+// Print out what fraction of hands are one of the above. You probably will not
+// see a royal flush until you examine 100k to 1 milion hands! At the top of
+// your code (in comments), record the percentage you see each type of hand.
+
+//Percentage of flushes: 0.001945Percentage of straights: 0.003548Percentage of straight flushes 1.6e-05Percentage of full houses: 0.001443Percentage of royal flushes: 7e-06Program ended with exit code: 0
+
