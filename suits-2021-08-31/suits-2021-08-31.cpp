@@ -33,29 +33,29 @@ std::string getSuitStr(Card c) {
 }
 
 int main() {
-	Card c1, c2;
+	// Card c1, c2;
 
-	// c1 as Spades 12?
-	c1.rank = 12;
-	c1.theSuit = 2;
+	// // c1 as Spades 12?
+	// c1.rank = 12;
+	// c1.theSuit = 2;
 
-	// test if c2 is diamond?
-	if (c2.theSuit == 3) {
-		// c2 is diamond
-	}
+	// // test if c2 is diamond?
+	// if (c2.theSuit == 3) {
+	// 	// c2 is diamond
+	// }
 
-	// are c1 and c2 the same suit?
-	if (c1.theSuit == c2.theSuit) {
-	}
+	// // are c1 and c2 the same suit?
+	// if (c1.theSuit == c2.theSuit) {
+	// }
 
-	// 1, 2, 3, 4, ..., 12
-	// => "January", "February", ...
-	if (c1.theSuit == 1) {
-		std::cout << "Clubs";
-	}
+	// // 1, 2, 3, 4, ..., 12
+	// // => "January", "February", ...
+	// if (c1.theSuit == 1) {
+	// 	std::cout << "Clubs";
+	// }
 
-	// etc...
-	std::cout << getSuitStr(c1);
+	// // etc...
+	// std::cout << getSuitStr(c1);
 
 	return 0;
 }
