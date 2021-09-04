@@ -55,7 +55,9 @@ $(PROJECT_NAME): $(BIN_DIR)$$@
 # Run a single project whose name is specified by PROJECT.
 .PHONY: run
 run: $(PROJECT_NAME)
+	@cd $(PROJECT_SRC_DIR)
 	@$(BIN_DIR)$(PROJECT_NAME) $(ARGS)
+	@cd -
 
 # Delete intermediate files.
 .PHONY: clean
@@ -66,7 +68,7 @@ clean:
 # Link rule.
 $(PROJECT_BIN): $(BIN_DIR)% : $(PROJECT_OBJS)
 	@mkdir -p $(@D)
-	$(CXX) $< $(LDLIBS) -o $@
+	$(CXX) $(PROJECT_OBJS) $(LDLIBS) -o $@
 
 # Compile rule. Stem % matches TEST_NAME/TEST_NAME, in which / is replaced \
 	with a space and the last word is extracted for the cpp file name.

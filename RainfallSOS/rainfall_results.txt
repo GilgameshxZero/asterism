@@ -18,7 +18,3 @@ The average rainfall amount for December is 0.10 inches.
  
 The rain amount, in inches, of the four wettest months is: 14.63 13.65 12.51 9.94
  
-The rain amount, in inches, of the four driest months is: 0.07 0.26 0.58 0.75
- 
-The median month is: 
-May 2002 3.52

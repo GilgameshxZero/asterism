@@ -29,7 +29,7 @@
 		"group": { "kind": "build", "isDefault": true },
 
 		"command": "make",
-		"args": ["${relativeFileDirname}"],
+		"args": ["PROJECT=${relativeFileDirname}"],
 		"problemMatcher": ["$gcc"],
 
 		"windows": {
@@ -48,7 +48,7 @@
 		"group": "build",
 
 		"command": "make",
-		"args": ["${relativeFileDirname}", "RELEASE=1"],
+		"args": ["PROJECT=${relativeFileDirname}", "RELEASE=1"],
 		"problemMatcher": ["$gcc"],
 
 		"windows": {
