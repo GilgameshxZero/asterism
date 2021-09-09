@@ -6,10 +6,10 @@
 			"name": "windows-debug-x64",
 			"type": "cppvsdbg",
 			"request": "launch",
+			"cwd": "${workspaceFolder}\\${relativeFileDirname}",
 			"program": "${workspaceFolder}\\bin\\${relativeFileDirname}.exe",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}\\bin",
 			"console": "integratedTerminal",
 			"preLaunchTask": "build-debug-x64"
 		},
@@ -17,10 +17,10 @@
 			"name": "posix-debug-x64",
 			"type": "cppdbg",
 			"request": "launch",
+			"cwd": "${workspaceFolder}/${relativeFileDirname}",
 			"program": "${workspaceFolder}/bin/${relativeFileDirname}",
 			"args": [],
 			"stopAtEntry": false,
-			"cwd": "${workspaceFolder}/bin",
 			"console": "integratedTerminal",
 			"preLaunchTask": "build-debug-x64",
 
