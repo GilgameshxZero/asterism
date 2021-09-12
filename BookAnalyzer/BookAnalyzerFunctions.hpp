@@ -18,7 +18,7 @@
 #include <iomanip>
 
 
-std::vector<std::string> OpenFile(std::string &fileName, std::string &userWord, const int &secretKey);
+std::vector<std::string> OpenFile(const std::string &fileName, const std::string &userWord, std::string &secretKey);
 std::string getTitle (std::vector<std::string> &fullBook);
 std::string getAuthor (std::vector<std::string> &fullBook);
 int totalNumWords (std::vector<std::string> &fullBook);
@@ -32,7 +32,20 @@ bool IsUpper( char c );
 bool IsLower( char c );
 bool IsDigit( char c );
 bool IsDecimalWord( const std::string &word );
-std::string DecimalToBinary( const std::string &word );
-std::string EncodeWord( const std::string &word, const int &secretKey);
+std::string DecimalToBinary( const std::string &word ) ;
+std::string EncodeWord( const std::string &word, std::string &secretKey);
+
+void makeFile ( const std::string &encodedText, const std::string &fileName, std::string &newFile); //doesn't put out/make a new file but needs to
+//IF FILE NAME ISN'T A CONST AND THEN YOU ASSIGN NEWFILE TO FILE NAME THIS BINCH GONNA OVERWRITE EVERYTHING IN FILE NAME LMAOOOOOO
+//BYE BYE MOBYDICK.TXT! RIP!
+//LOLOLOL
+
+//
+
+//why make &word a const...
+//if it weren't, what could change?
+//just a good habit to get into, make things you are pointing at/using into const if you aren't going to change them
+//this helps mitigate potential undefined behavior
+
 
 #endif /* BookAnalyzerFunctions_hpp */

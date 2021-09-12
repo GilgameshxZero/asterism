@@ -7,7 +7,7 @@
 
 #include "BookAnalyzerFunctions.hpp"
 
-std::vector<std::string> OpenFile(std::string &fileName, std::string &userWord, const int &secretKey){
+std::vector<std::string> OpenFile(const std::string &fileName, const std::string &userWord, std::string &secretKey){
     
     std::ifstream openBook (fileName);
     
@@ -19,17 +19,17 @@ std::vector<std::string> OpenFile(std::string &fileName, std::string &userWord, 
         
     std::vector<std::string> fullBook;
     std::string bookWord;
+    std::string newFile; //just need to declare
     
     while (openBook >> bookWord) {
-
-        EncodeWord(bookWord, secretKey); //this is where we do the encoding
-        //if the user provides a secretKey of 0, no encryption will happen
+        
         fullBook.push_back(bookWord);
         
     }
-
+    
     return fullBook;
 }
+
 
 std::string getTitle (std::vector<std::string> &fullBook){
     
@@ -41,18 +41,20 @@ std::string getTitle (std::vector<std::string> &fullBook){
     
         if( fullBook[a] == title ){
         
-            while (fullBook[a] != "Author:"){
+            while (fullBook[a] != "Author:"){ //turn into a helper function to be easier to read
                 
             std::cout<< fullBook[a] << " ";
             a++;
             totalLine.push_back(fullBook[a]);
-                
-            if(totalLine.size() > 10){ //can increase for longer book titles
-                std::cout<< "\n" << "\n";
-                std::cout << "Error in formatting. Could not define the title properly.\n";
-                return title;
-                }
+            
             }
+            
+        if(totalLine.size() > 10){ //can increase for longer book titles
+            std::cout<< "\n" << "\n";
+            std::cout << "Error in formatting. Could not define the title properly.\n";
+            return title;
+        }
+            
             std::cout<< std::endl;
             return title;
     }
@@ -63,7 +65,7 @@ std::string getTitle (std::vector<std::string> &fullBook){
     return title;
 }
 
-std::string getAuthor (std::vector<std::string> &fullBook){
+std::string getAuthor (std::vector<std::string> &fullBook){ //since basically the same as getTitle, don't need a separate function, just need to be able to switch the parameters
 
     std::string author = "Author:";
     std::vector<std::string> totalLine;
@@ -77,12 +79,15 @@ std::string getAuthor (std::vector<std::string> &fullBook){
                 a++;
                 totalLine.push_back(fullBook[a]);
                 
-                if(totalLine.size() > 10){ //can increase for longer names
-                    std::cout<< "\n" << "\n";
-                    std::cout << "Error in formatting. Could not define the author properly.\n";
-                    return author;
-                }
+            
             }
+            
+        if(totalLine.size() > 10){ //can increase for longer names
+                std::cout<< "\n" << "\n";
+                std::cout << "Error in formatting. Could not define the author properly.\n";
+                return author;
+        }
+            
             std::cout<< std::endl;
             return author;
         }
@@ -93,7 +98,7 @@ std::string getAuthor (std::vector<std::string> &fullBook){
     return author;
 }
 
-int totalNumWords (std::vector<std::string> &fullBook) {
+int totalNumWords (std::vector<std::string> &fullBook) { //can just return fullBook.size() because it's a vector of STRINGS!! each string is a word
     int count = 0;
     int a = 0;
     while (a < fullBook.size()){
@@ -154,6 +159,8 @@ std::string findShortestWord (std::vector<std::string> &fullBook) {
     
     return shortestWord;
 }
+//can parameters be operators so as to condense findLongest and findShortest
+//look up functional programming -- pass in functions as a parameter
 
 std::string KeyWord (std::vector<std::string> &fullBook, std::string &userWord) {
     
@@ -162,8 +169,8 @@ std::string KeyWord (std::vector<std::string> &fullBook, std::string &userWord) 
     std::string userWordSet;
     std::vector<double> userWordLocations;
     double location = 0;
-    double count = 0;
-    double count2 = 0;
+    double count = 0; //number of times the userWord occurs
+    double count2 = 0; //total chars up to a point
     
     for( int a = 0; a < fullBook.size(); a++){
         
@@ -175,8 +182,8 @@ std::string KeyWord (std::vector<std::string> &fullBook, std::string &userWord) 
             userWordAppearances.push_back(userWordSet);
             
             //have it count until the index a
-            for ( int b = 0; b < a; b++){
-                
+            for ( int b = 0; b < a; b++){ //can extract into separate function
+                //aka make a helper function
                 count2 = count2 + fullBook[b].size(); //count2 accounts for the total number of chars up til b < a
             }
             
@@ -204,7 +211,7 @@ void findProperNouns (std::vector<std::string> &fullBook){
     double location; //where the char of a word is in the book as a percentage
     std::vector<int> pWordLocations; //stores all the locations of each pNoun found as an int
     
-    for( int a = 0; a < fullBook.size(); a++){
+    for( int a = 1; a < fullBook.size()-1; a++){
         
         word = fullBook[a];
         std::string previousWord = fullBook[a-1];
@@ -283,54 +290,172 @@ bool IsDecimalWord( const std::string &word ) {
 //Determines whether or not a word contains only digits, and none others.
 
 std::string DecimalToBinary( const std::string &word ) {
-    std::string binaryString;
+    //want the output to be a string bc...look down at encode function
+    //int can't be stored in a char
     
-    //base 10 --> base 2
-    //when changing bases, what changes
-    
-    return binaryString;
-}
+        std::string Total;
+        int exponent = word.length()-1;
+        
+        for( int a = 0; a < word.length(); a++){
+            
+            char singleCharacter = word[a];
+            int convertedCharacter = 0;
+            
+            if( singleCharacter <= '9'){
+                convertedCharacter = singleCharacter - '0';
+            }
+            
+            else{
+                if (singleCharacter < 'a'){
+                    singleCharacter = singleCharacter + ' '; //' ' value is 32 on ascii table
+                }
+                
+                convertedCharacter = singleCharacter - 'a' + 10; // -87
+            }
+            
+            Total = Total + std::to_string(convertedCharacter * std::pow(2, exponent));
+            //cast convertedCharacter * std::pow(2, exponent) as a string
+            //will it still perform the operations inside?
+            //if I take an equation and put it in a string, will it still do my equation?
+            //NO!!!
+            //need to use a function to convert an int to string form
+            //where std::stoi converts a string to int,
+            //std::to_string converts an int to string
+            
+            exponent--;
+        }
+        
+        //std::cout << "The value of " << word << " is " << Total << std::endl;
+        
+        return Total;
+    }
 //Returns the binary string representation of the decimal string. You probably already wrote this function in your binary converter assignment.
 
 
-std::string EncodeWord( const std::string &word, const int &secretKey ) {
+std::string EncodeWord( const std::string &word, std::string &secretKey) {
+    
     std::string encodedText;
-
+    std::stoi(secretKey);
+    int myNumber = std::stoi(secretKey);
+    
     char oldChar; //the initial char
     char newChar; //the char after the encode
 
     
-    for( int a = 0; a < word.length()-1; a++){//break up each string "word" into chars
+    for( int a = 0; a < word.length(); a++){//break up each string "word" into chars
         oldChar = word[a];
         
         if (IsUpper(oldChar) == true){
-            newChar = (oldChar + secretKey) % 26; //the char after the encode //if ascii values are 65 - 90 'A' to 'Z'
+            newChar = (oldChar - 'A' + myNumber) % 26 + 'A'; //the char after the encode //if ascii values are 65 - 90 'A' to 'Z'
         }
-        if(IsLower(oldChar) == true){
-            newChar = (oldChar + secretKey) % 26; //the char after the encode //if ascii values are 97 - 122 'a' to 'z'
+        else if(IsLower(oldChar) == true){
+            newChar = (oldChar - 'a' + myNumber) % 26 + 'a'; //the char after the encode //if ascii values are 97 - 122 'a' to 'z'
         }
-        if(IsDigit(oldChar) == true){
-            newChar = (oldChar + secretKey) % 10; //the char after the encode //if ascii values are 48 - 57 '0' to '9'
+        else if(IsDigit(oldChar) == true){
+            newChar = (oldChar - '0' + myNumber) % 10 + '0'; //the char after the encode //if ascii values are 48 - 57 '0' to '9'
         }
+        else {
+            newChar = oldChar;
+        }
+       
         
         if (IsDecimalWord(word) == true){ //if receive a word of only digits
+            //need to replace that word with the binary equivalent because assignment said so
+            std::string converted = DecimalToBinary(word); //this gives a string
+            converted[a] = newChar; //this will index into the string converted and receive a char and assign that to newChar
             
-            oldChar = word[a]; //remember
-            newChar = (oldChar + secretKey) % 10; //the char after the encode //if ascii values are 48 - 57 '0' to '9'
-            //would this really be treated any differently than IsDigit?
-            //if so, why???
             
         }
-    }
         
         encodedText.push_back(newChar);
-        std::cout << encodedText;
+    }
+        //std::cout << encodedText;
         
         return encodedText;
     }
     
+
+void makeFile ( const std::string &encodedText, const std::string &fileName, std::string &newFile) { //take the output of EncodeWord function
+    //newFile is what the ofstream is outputting it to
+    //a parameter doesn't always take just input, it can be output as well;
     
+    //std::string newFile = fileName + "_encoded"; //but .txt would be before encoded lol
+    //fix by taking the substring .txt out of fileName
+    std::string suffix = "_encoded";
+    std::string txt; //for substring ".txt"
+    std::string name; //fileName without .txt
     
+    for( int a = 0; a < fileName.length(); a++){
+        
+        
+        if (fileName.substr(a, a + 4) == ".txt"){ //since .txt is length of 4 char
+       
+        txt = fileName.substr(a, a + 4);
+        }
+        
+    name = fileName.substr(0, a);
+    }
+ 
+    newFile = name + suffix + txt; //take out .txt from the og filename, add the suffix for _encode, then add .txt back in
+    //creates this File with the name of those concatenated strings
+    
+    std::ofstream write (newFile);
+    //opens the file newFile, and prepares to put stuff in it
+    
+    write << encodedText;
+    //puts the cout of encoded text in the file write opens to prepare to write to (aka newFile)
+    //encodedText is a string,
+    //cout "opens" the terminal and std::cout << "hi"; opens the terminal and writes out the string "hi"
+   
+    
+    if (write.fail()){
+        std::cout << "Failed to make file: \n" << newFile << "\n.";
+        
+        exit ( 1 );
+    }
+    
+    write.close();
+}
+ 
+
+//    // std::string word = argv[2]; /
+//    //second thing passed in the command line is a string word
+//
+    //this is where we do the encoding
+//if the user provides a secretKey of 0, no encryption will happen
+//EncodeWord outputs a giant long string of all the encryption (NOT a vector of strings
+
+//        makeFile(encodedBook, fileName, newFile);
+
+//-----------
+//std::string encodeHelper (std::vector<std::string> &fullBook, const int &secretKey){
+//
+//    std::string encodedBook;
+//    int a = 0;
+//    while(a < fullBook.size()){
+//    if( userWord == "-encode"){ //only do this if the second command line prompt is -encode
+//        encodedBook = EncodeWord(fullBook[a], secretKey);
+//
+//    }
+//        a++;
+//    }
+//    return encodedBook;
+//}
+//-----------
+//    while( makeFile << newFile){ //while reading out to newFile
+//        //don't need a loop lol
+    //just tell it to read out to newFile
+//
+//        newFile.push_back(newFile);
+//        //while outputting the og File
+//        //needs to rename it to newFile
+//    }
+//    write << newFile; //do std::ofstream write on fileName and write out to the newFile
+ 
+
+//String containing the substring [pos, pos+count) or [pos, size())
+//[ means must be included, ) is optional
+//don't literally write it as [pos, pos+count) lol
     //cipher key
 
     //All words containing decimal numbers should be replaced with their binary representation using '0' and '1' characters. A decimal number in a book is any word that consists of only the characters '0' through '9', and no punctuation.
@@ -399,112 +524,54 @@ std::string EncodeWord( const std::string &word, const int &secretKey ) {
 //copy this part of keyword function^
 //great^^ in this i accounted for if there is no index for a - 1
 
+// dealing with paths:
 
+//-------
+//thinks that /Users/anna/Desktop/CS6010/GIT/annaThomas myGithhubRepo/Day10/ is part of the file name
+//could get rid of this issue by putting the original .txt file in the same directory
+//could also get rid of it by dealing with paths
+//but paths are HARD
+//so just put everything in the same directory
+//-------
+//or...
 
-
-
-
-//Previous Comments:
-//--------------------------
-//Have book start at (or just spit out?) the title/author attempt
-//Will run into errors if Author or Title don't exist
-//need to have it spit out unknown, but will it still be able to read the whole book after the beginning spiel?
-//-------------------------
-//std::vector<std::string> fullBook;
-// std::string bookWord;
-// //std::getline(openBook, prefaceInfo); //don't have to separate the beginning spiel?
-//to start after beginning spiel, do if ( word == "START" ) { done = true;} //because the book starts at *** START OF THE PROJECT GUTENBERG EBOOK MOBY-DICK *** //so look for "START"
-//book ends at *** END OF THE PROJECT GUTENBERG EBOOK MOBY-DICK ***
-//tell program to stop reading everything after that if you just want the book
-//if ( word == "END" ) { done = true; } or something
-
-
-// //std::getline(openBook, author);
-// //std::getline(openBook, releaseDate);
+//for ( start; start < fileName.length(); start++){
 //
-// while (openBook >> bookWord) {
-
-
-//        std::string title = "Title:";
-//        std::string author = "Author:";
-//
-//
-//        if( bookWord == title ){
-//
-//            std::getline(openBook, bookWord);
-//            std::cout<< title << " " << bookWord;
-//        }
-//
-//        if( bookWord == author ){
-//
-//            std::getline(openBook, bookWord);
-//            std::cout << author << " " << bookWord;
-//        }
-
-//     fullBook.push_back(bookWord);
-//
-// }
-
-//Prof example
-// ------------------------
-//bool foundAuthor = false;
-//bool foundTitle = false;
-//bool done = foundAuthor && foundTitle;
-
-//while ( openBook >> bookWord ) {
-//
-// had another while loop here
-//      if( word == "Title:" ){
-//      string title;
-//      getline( in, title );
-//      //title.pop_back();
-//      //title.erase( title.begin () );
-//      std::cout << "title: " << title << std::endl;
-//      break; //exit this loop immediately
-//
-//      }
-//
-//done = foundAuthor && foundTitle;
-//}
-//char c;
-//int totalChars = 0;
-//
-// while ( openBook >> c) {
-//  if ( c == '\n' ) {
-//  return 0;
-//  }
-//else {
-//    std::cout<< c << "\n"; //can swap out \n on lines 247 and 251 for \r to just have it cycle through the chars, not just put one on every line
-//
-//}
-//  totalChars++;
-//
-//}
-
-//--------------------------------
-//original way I found the total num chars...instead of just adding the size of every string in each index prior to a //lol
-// int count = 0;
-//int a = 0;
-//std::string totalSubstring;
-//std::string oneCharacter;
-////each index of the vector fullBook has a string, count each char within the string, excluding whitespaces
-//
-//while (a < fullBook.size()){ //less sussy way: count = fullBook[a].size() + count
-//
-//    int b = 0;
-//
-//    while( fullBook[a].length() != totalSubstring.length()){ //doing length bc who knows if adding oneCharacter to totalSubstring will put it in the same order as fullBook[a]
-//
-//        oneCharacter = fullBook[a].substr(b, 1); //position is index b, length is 1, designed to give me a string that is one "character" long at a time
-//        count = count + 1; //count everytime there is a "character"
-//        totalSubstring = totalSubstring + oneCharacter; //add oneCharacter onto the end of
-//        b++;
+//    if (fileName[start] != '/'){
+//    name = fileName.substr(start, a);
 //    }
-//    totalSubstring.clear();
-//    oneCharacter.clear();
-//    a++;
+//
+//    if (fileName[start] == '/'){
+//        name.clear();
+//    }
 //}
 //
-//std::cout<< "The total number of characters is " << count << ".\n";
+//if (fileName.substr(a, a + 4) == ".txt"){ //since .txt is length of 4 char
 //
-//return count;
+//txt = fileName.substr(a, a + 4);
+//
+//}
+//}
+//// name = fileName.substr(slash + 1, a); //name will be everything from the start of the string up til point a where the substring .txt was found
+////want to change index 0 to be the index of the last /
+////parameters --> (recent "/" index, a)
+//
+////doesn't work for storing the substr at these parameters in string //if "mobydick.txt" is og
+////want "mobydick_encoded.txt"
+////issue i'm getting:
+//// /Users/anna/Desktop/CS6010/GIT/annaThomas myGithhubRepo/Day10/MobyDick.txt
+////_encoded.txt
+////thinks that /Users/anna/Desktop/CS6010/GIT/annaThomas myGithhubRepo/Day10/ is part of the file name
+////could get rid of this issue by putting the original .txt file in the same directory
+////could also get rid of it by...
+////read after the last /
+
+// name = fileName.substr(slash + 1, a); //name will be everything from the start of the string up til point a where the substring .txt was found
+ //want to change index 0 to be the index of the last /
+ //parameters --> (recent "/" index, a)
+
+ //doesn't work for storing the substr at these parameters in string //if "mobydick.txt" is og
+ //want "mobydick_encoded.txt"
+ //issue i'm getting:
+// /Users/anna/Desktop/CS6010/GIT/annaThomas myGithhubRepo/Day10/MobyDick.txt
+//_encoded.txt

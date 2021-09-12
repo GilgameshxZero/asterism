@@ -6,7 +6,8 @@
 		"label": "clean",
 		"options": { "cwd": "${workspaceFolder}/build" },
 		"presentation": {
-			"clear": true
+			"clear": true,
+			"reveal": "silent"
 		},
 
 		"command": "make",
