@@ -18,7 +18,7 @@ if(inFile.fail()){
 
 
 std::string line = getline();
-std::stringstream splitter ( line );
+std::stringstream splitter ( line ); //ok where does splitter method come from
 {
 std::cout << "Got line: " << line << "\n";
 
@@ -59,7 +59,7 @@ uint16_t splitUpParameters ( const string &opcodeName, std::stringstream &splitt
 
     uint8_t r1 = getRegCode( r1Name );
     uint8_t r2 = getRegCode( r2Name );
-    int8_t imm = std::stoi ( immName ); //it's int 8 bit not uint
+    uint8_t imm = std::stoi ( immName ); //it should be able to be a signed int of 8 bits, but for some reason that messes the rest up...
 
     result = r1 << 10;
     result = result | (re2 << 8);
@@ -78,7 +78,6 @@ std::cout << "The opcode is: 0x" << std::hex << +theOpcode << "\n";
 
 
 uint*_t theOpcode = getOpcode ( opcodeName );
-splitUpParameters = 
 uint16_t instruction  = theOpcode << 12; //to put the opcode in the correct location of the 2-byte integer
 uint16_t parameters = splitUpParameters ( opcodeName, splitter );
 instruction = instruction | parameters;
