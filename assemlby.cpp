@@ -1,14 +1,24 @@
+#include <cmath>
+#include <string>
+#include <iostream>
+#include <stdio.h>
+#include <stdint.h>
+#include <fstream>
+
+
 int main ( int argc, char *argv[]) {
 
-string inFileName = "simulator/factorial.c"
-ifstream inFile( inFileName );
+std::string inFileName = "simulator/factorial.c";
+std::ifstream inFile( inFileName );
 
 if(inFile.fail()){
 
     std::cout << "Failed to open: " << inFileName << std::endl;
 }
 
-stringstream splitter (line );
+
+std::string line = getline();
+std::stringstream splitter ( line );
 {
 std::cout << "Got line: " << line << "\n";
 
@@ -16,12 +26,12 @@ std::cout << "Done \n";
 return 0;
 }
 
-uint8_t getOpcode = getOpcode ( opcodeName);
+uint8_t getOpcode = getOpcode ( std::string &opcodeName);
 {
-    if( opcode == "read" ){
+    if( opcodeName == "read" ){
         return: 0x7; //0111 in binary, 0x7 in hex //determined by the values in the table wer got
     }
-    else if ( opcode == "addi"){
+    else if ( opcodeName == "addi"){
         return 0x1; //0001 is 1 in binary, 0x1 in hex
     }
 //.... other else if statements
@@ -32,7 +42,11 @@ uint8_t getOpcode = getOpcode ( opcodeName);
     }
 }
 
-uint16_t splitUpParameters ( const string &opcodeName, stringstream &splitter){
+ getRegCode (){ 
+
+ }
+
+uint16_t splitUpParameters ( const string &opcodeName, std::stringstream &splitter){
 
     if( opcodeName == "addi" ){
         std::string r1;
@@ -42,6 +56,15 @@ uint16_t splitUpParameters ( const string &opcodeName, stringstream &splitter){
         std::cout << r1 << ", " << r2 << ", " << imm << std::endl;
 
     }
+
+    uint8_t r1 = getRegCode( r1Name );
+    uint8_t r2 = getRegCode( r2Name );
+    int8_t imm = std::stoi ( immName ); //it's int 8 bit not uint
+
+    result = r1 << 10;
+    result = result | (re2 << 8);
+    result = result | imm;
+    std::cout << +r1 << ", " << +r2 << ", " << +imm << std::endl;
 
 
 }
@@ -53,8 +76,12 @@ std::cout << "The opcode is: 0x" << std::hex << +theOpcode << "\n";
 //now it will read it out as a hex, and we hard-coded 0x so that we
 //...can remember the displayed value is in hex
 
+
 uint*_t theOpcode = getOpcode ( opcodeName );
+splitUpParameters = 
 uint16_t instruction  = theOpcode << 12; //to put the opcode in the correct location of the 2-byte integer
+uint16_t parameters = splitUpParameters ( opcodeName, splitter );
+instruction = instruction | parameters;
 
 
 }
