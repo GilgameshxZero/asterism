@@ -72,8 +72,9 @@ char MyString::char operator[] ( int index ) const
 MyString::MyString() 
 { 
 
-    data = new char[1]; //
-    data[0] = 0; //0 is the null terminating character
+    data = new char[1]; //tells it to allocate one "spot" on the heap for storing the values of char array data (char * data)
+    data[0] = 0; //tells it that the char array data indexed at zero is null as 0 is the null terminating character 
+    //reads 0 as a char, and on the ascii table, dec 0 is NULL //whereas dec 48 is the number 0
     length = 0;
 }
 
