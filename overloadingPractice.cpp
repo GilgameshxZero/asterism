@@ -112,6 +112,9 @@ MyString& MyString::operator= (const MyString& otherString) //can return somethi
     //return a dereferenced pointer to "this" , which is variable type MyString& 
 }
 
+//ok i am now understand overloading operators and the rule of three that if I have any destructor, copy constructor, or operator=, I need to implement all three to guarantee that each object is created and destroyed properly
+
+
 
 //default constructor
 MyString::MyString() 
