@@ -106,7 +106,6 @@ MyString& MyString::operator= (const MyString& otherString) //can return somethi
      //or I can call this whever I want to copy an object of type MyString that replaces the original object of type MyString
      //I can make a copy constructor that uses this overloaded operator in it, and that also preserves the original object of type MyString    
  
-    }
 
     return *this; //can only allocate a pointer into a reference //look up
     //return a dereferenced pointer to "this" , which is variable type MyString& 
