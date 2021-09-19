@@ -1,5 +1,6 @@
 #include <iostream>
 
+//when using a template, all the function declarations must be in the same header file as the class using the template
 template<typename T> //tells stack that we are about to work with a template
 class Stack {
 
@@ -11,9 +12,10 @@ class Stack {
         int pop(); //returns the top of the stack
         bool isEmpty(); //tells if stack is empty or not
         int size() { return pos + 1; } //don't need a semi-colon when writing a function in a class
-        //why don't need one? we put them for pop and push. 
-        //because you don't use one after writing a function, only when declaring
-        //ok, look up why we need a semi colon for a declaration
+        //Why?
+        //"Semicolons serve to separate statements from each other, and a Function Declaration is not a statement."
+        //ok!
+        //https://stackoverflow.com/questions/24147429/why-is-a-function-declaration-not-a-statement-while-a-variable-declaration-is
 
     private:
 
