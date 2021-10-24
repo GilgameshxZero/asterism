@@ -6,8 +6,11 @@ std::string compress(std::string const &original) {
 	for (int i = 0; i < original.length();) {
 		int counter = 0;
 		char first = original[i];
-		while (original[i] == first) {
-			i++;
+		// while (original[i] == first) {
+		// 	i++;
+		// 	counter++;
+		// }
+		for (; original[i] == first; i++) {
 			counter++;
 		}
 
